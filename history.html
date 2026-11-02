@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comment &amp; Thought-Process History — LinkedIn &amp; X Comment AI</title>
+  <link rel="stylesheet" href="history.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Comment history threads">
+      <header class="sidebar-head">
+        <div class="brand-row">
+          <img src="icons/icon48.png" alt="" width="32" height="32" class="brand-icon">
+          <div class="brand-copy">
+            <h1>Comment History</h1>
+            <p>Comments, Posts &amp; Thought Process</p>
+          </div>
+        </div>
+        <button type="button" id="openSettingsBtn" class="icon-btn" title="Open Extension Settings" aria-label="Open Extension Settings">⚙</button>
+      </header>
+
+      <div id="statsBar" class="stats-bar" aria-live="polite">
+        <span id="statsToday">0 today</span>
+        <span class="stats-dot">·</span>
+        <span id="statsInserted">0 inserted</span>
+        <span class="stats-dot">·</span>
+        <span id="statsTotal">0 total</span>
+      </div>
+
+      <div class="search-wrap">
+        <input type="search" id="searchInput" placeholder="Search posts, authors, comments, or thoughts…" autocomplete="off" spellcheck="false" aria-label="Search history">
+      </div>
+
+      <div class="filter-bar" id="filterBar" role="tablist" aria-label="Filter threads">
+        <button type="button" class="filter-pill active" data-filter="all">All</button>
+        <button type="button" class="filter-pill" data-filter="used">✓ Inserted / Copied</button>
+        <button type="button" class="filter-pill" data-filter="linkedin">LinkedIn</button>
+        <button type="button" class="filter-pill" data-filter="x">X</button>
+        <button type="button" class="filter-pill" data-filter="posts">Posts</button>
+      </div>
+
+      <div id="threadList" class="thread-list" role="list"></div>
+
+      <footer class="sidebar-foot">
+        <div class="foot-actions">
+          <button type="button" id="exportMdBtn" class="mini-action-btn" title="Download history as a readable Markdown file">Export .MD</button>
+          <button type="button" id="exportJsonBtn" class="mini-action-btn" title="Download backup as JSON">Export .JSON</button>
+          <button type="button" id="importJsonBtn" class="mini-action-btn" title="Restore or merge from a JSON backup">Import</button>
+          <button type="button" id="clearAllBtn" class="mini-action-btn danger" title="Clear all saved history">Clear</button>
+          <input type="file" id="importFileInput" accept="application/json,.json" hidden>
+        </div>
+      </footer>
+    </aside>
+
+    <main class="main-pane" id="mainPane">
+      <div id="emptyState" class="empty-state">
+        <div class="empty-card">
+          <div class="empty-icon">💭</div>
+          <h2 id="emptyTitle">Your Comment &amp; Thought-Process History</h2>
+          <p id="emptyDesc">Every time you generate a comment or post on LinkedIn or X, the original post, the AI's step-by-step thought process, creative hex seed, and final comment will appear here automatically — organized by day like an LLM chat log.</p>
+        </div>
+      </div>
+
+      <div id="threadDetail" class="thread-detail" hidden>
+        <header class="detail-head">
+          <div class="detail-head-main">
+            <div class="detail-badges">
+              <span id="detailPlatformBadge" class="badge platform-badge">LinkedIn</span>
+              <span id="detailDateText" class="detail-date"></span>
+            </div>
+            <h2 id="detailTitle" class="detail-title">Replying to Post</h2>
+          </div>
+          <div class="detail-head-actions">
+            <a id="detailPostLink" class="btn secondary-btn" href="#" target="_blank" rel="noopener noreferrer" hidden>Open Original Post ↗</a>
+            <button type="button" id="deleteThreadBtn" class="btn danger-btn" title="Delete this thread from history">Delete Thread</button>
+          </div>
+        </header>
+
+        <section class="post-context-card" aria-label="Original post context">
+          <div class="section-bar">
+            <span class="section-label">📌 Original Post / Input Context</span>
+            <span id="detailPostMeta" class="section-meta"></span>
+          </div>
+          <div id="detailPostText" class="post-context-body"></div>
+        </section>
+
+        <section class="turns-section" aria-label="Generated comments and thought process">
+          <div class="turns-header">
+            <h3>🧠 AI Thought Process &amp; Generated Drafts</h3>
+            <span id="turnsCountBadge" class="turns-count">1 draft</span>
+          </div>
+          <div id="turnsContainer" class="turns-container"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="history.js"></script>
+</body>
+</html>

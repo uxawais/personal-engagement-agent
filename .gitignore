@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Builds & Zips
+*.zip
+dist/
+build/
+
+# OS and Editor artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Environment and secrets (just in case)
+.env
+.env.*
+*.pem
+*.key
+
+# Test and run logs
+*.log
+npm-debug.log*
+
+# Graphify / AI cache
+graphify-out/

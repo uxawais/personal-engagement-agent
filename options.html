@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LinkedIn Comment Assistant — Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="head">
+      <img src="icons/icon48.png" alt="" width="40" height="40">
+      <div>
+        <h1>LinkedIn &amp; X Comment AI</h1>
+        <p class="sub">AI ghostwriter &amp; social engagement assistant for LinkedIn and X. Direct, grounded, zero AI fluff.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>AI provider</h2>
+
+      <label class="field">
+        <span class="field-label">Provider</span>
+        <select id="provider">
+          <option value="openai">OpenAI</option>
+          <option value="anthropic">Anthropic (Claude)</option>
+          <option value="gemini">Google Gemini</option>
+          <option value="openrouter">OpenRouter</option>
+          <option value="groq">Groq</option>
+          <option value="deepseek">DeepSeek</option>
+          <option value="ollama">Ollama (local, free)</option>
+          <option value="custom">Custom (OpenAI-compatible)</option>
+        </select>
+        <a id="keyUrl" class="link" href="#" target="_blank" rel="noopener">Get an API key</a>
+      </label>
+
+      <label class="field">
+        <span class="field-label">API key</span>
+        <span class="key-row">
+          <input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your key here">
+          <button type="button" id="toggleKey" class="mini-btn" title="Show / hide key">👁</button>
+        </span>
+        <span class="hint" id="ollamaHint" hidden>Ollama runs fully locally — no API key needed.</span>
+      </label>
+
+      <div class="grid-2">
+        <div class="field">
+          <div class="field-label-row">
+            <label class="field-label" for="model">Model</label>
+            <label class="free-filter-toggle" id="freeFilterWrap" hidden title="Show only free models (:free)">
+              <input type="checkbox" id="freeOnlyToggle">
+              <span>Free only</span>
+            </label>
+          </div>
+          <div class="model-row">
+            <input id="model" type="text" autocomplete="off" spellcheck="false" placeholder="Auto-detecting latest model…">
+            <button type="button" id="toggleModelMenu" class="mini-btn" title="Show / hide model list" aria-label="Show or hide model list">▾</button>
+            <button type="button" id="refreshModels" class="mini-btn" title="Fetch available models from API" aria-label="Fetch available models from API">↻</button>
+            <div id="modelMenu" class="model-menu" role="listbox" hidden></div>
+          </div>
+          <datalist id="modelSuggestions"></datalist>
+          <span class="hint" id="modelHint" hidden></span>
+        </div>
+        <label class="field">
+          <span class="field-label">Base URL</span>
+          <input id="baseUrl" type="url" spellcheck="false" placeholder="https://api.openai.com/v1">
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head-row">
+        <h2>Comment Thinking Workflow &amp; Context</h2>
+        <button type="button" id="resetVoice" class="link-btn" title="Restore default thinking workflow &amp; context settings">Reset Voice Card</button>
+      </div>
+
+      <div class="voice-summary">
+        <strong>Thinking Workflow:</strong> Reads 100% of the post caption first, generates a fresh 48-char random hex seed (<code>openssl rand -hex 24</code>) to derive a bespoke creative direction (tone, cadence, diction, punctuation texture &amp; stance), and writes an intentional, non-templated human reply.
+      </div>
+
+      <div class="grid-2">
+        <label class="field">
+          <span class="field-label">Your Name (optional)</span>
+          <input id="userName" type="text" placeholder="e.g. Alex Morgan">
+        </label>
+        <label class="field">
+          <span class="field-label">Your Role / Background (optional)</span>
+          <input id="userRole" type="text" placeholder="e.g. Software Engineer, Product Designer, Founder">
+        </label>
+      </div>
+
+      <div class="field">
+        <label class="checkbox-field">
+          <input type="checkbox" id="personaEnabled" checked>
+          <span>Use <b>Contextual Persona</b> (only brings in your background when the post is genuinely relevant to your domain)</span>
+        </label>
+      </div>
+
+      <div class="grid-3">
+        <label class="field">
+          <span class="field-label">Default channel</span>
+          <select id="channel">
+            <option value="comment">Comment (1–3 sentences)</option>
+            <option value="linkedin_post">LinkedIn Post</option>
+            <option value="linkedin_long">LinkedIn Long-Form Post (500+ words)</option>
+            <option value="x_post">X (Twitter) Post</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="field-label">Default tone / angle</span>
+          <select id="tone">
+            <option>Engaging</option>
+            <option>Thoughtful</option>
+            <option>Humor / Witty</option>
+            <option>Out-of-the-Box / Fresh Angle</option>
+            <option>Curious / Smart Question</option>
+            <option>Polite Counterpoint</option>
+            <option>Friendly / Supportive</option>
+            <option>Practitioner Take</option>
+            <option>Professional</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="field-label">Language</span>
+          <select id="language">
+            <option value="same">Same as the post</option>
+            <option value="english">English</option>
+            <option value="spanish">Spanish</option>
+            <option value="urdu">Urdu</option>
+            <option value="hindi">Hindi</option>
+            <option value="arabic">Arabic</option>
+            <option value="french">French</option>
+            <option value="german">German</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span class="field-label">Optional phrases / vocabulary (leave blank for full creative freedom)</span>
+        <textarea id="signaturePhrases" rows="2" placeholder="Optional: add personal phrases only if you want the AI to occasionally draw from them"></textarea>
+        <span class="hint">Left blank by default so the AI thinks freely without repeating stock catchphrases.</span>
+      </label>
+
+      <label class="field">
+        <span class="field-label">Words I never use (Absolute ban list of AI-isms &amp; cringe phrases)</span>
+        <textarea id="bannedWords" rows="2" placeholder="delve, tapestry, testament, game-changer, unleash, elevate, unlock, leverage, resonate, seamless, robust, let's dive in"></textarea>
+        <span class="hint">Comma-separated words/phrases the AI is strictly forbidden from outputting.</span>
+      </label>
+
+      <label class="field">
+        <span class="field-label">Extra instructions / real comment examples (optional)</span>
+        <textarea id="extra" rows="2" placeholder="e.g. Paste 1–2 of your favorite comments or add custom context for your current focus."></textarea>
+      </label>
+
+      <div class="field">
+        <span class="field-label">Comment box &amp; button display</span>
+        <label class="checkbox-field">
+          <input type="checkbox" id="hideWhileTyping">
+          <span>Auto-hide floating <b>✨ AI Draft</b> badge while I am typing in the comment box</span>
+        </label>
+        <label class="checkbox-field">
+          <input type="checkbox" id="hideFloatingWidget">
+          <span>Always hide the floating <b>✨ AI Draft</b> badge inside comment boxes</span>
+        </label>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button id="openHistory" type="button" class="btn secondary">🕘 View Comment &amp; Thought History</button>
+      <button id="test" class="btn secondary">Test connection</button>
+      <button id="save" class="btn primary">Save settings</button>
+    </div>
+    <div id="status" class="status" hidden></div>
+
+    <p class="footnote">
+      Comments are generated by sending the post text + your author name to the selected AI provider.
+      Your API key is stored only in your browser (chrome.storage.local) and never leaves the extension.
+    </p>
+  </main>
+
+  <script src="options.js"></script>
+</body>
+</html>

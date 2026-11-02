@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <img src="icons/icon48.png" alt="" width="28" height="28">
+      <div class="brand-text">
+        <span class="brand-title">LinkedIn &amp; X Comment AI</span>
+        <span class="brand-sub">Authentic social assistant</span>
+      </div>
+    </div>
+    <div id="status" class="status">Loading…</div>
+    <label class="toggle-row" title="Automatically hide the floating AI Draft pill while you are actively typing in a comment box">
+      <input type="checkbox" id="hideWhileTyping">
+      <span>Hide AI pill while typing</span>
+    </label>
+    <label class="toggle-row" title="Completely hide the floating AI Draft pill inside comment boxes">
+      <input type="checkbox" id="hideFloatingWidget">
+      <span>Hide floating pill in comment box</span>
+    </label>
+    <button id="scan" class="btn secondary">✨ Activate &amp; Scan Feed</button>
+    <button id="history" class="btn secondary">🕘 Comment &amp; Thought History</button>
+    <button id="options" class="btn primary">Open Settings</button>
+    <div class="hint">Click any LinkedIn or X comment box to see the floating <b>✨ AI Draft</b> pill, or click <b>AI</b> on any post.</div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

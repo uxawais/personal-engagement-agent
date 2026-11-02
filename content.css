@@ -1,0 +1,745 @@
+/*
+ * LinkedIn Comment Assistant — Apple-inspired injected UI styles.
+ * Frosted glass (backdrop-filter), SF Pro typography, fluid spring animations,
+ * and a Grammarly-style floating trigger inside LinkedIn's comment fields.
+ */
+
+/* ---------- per-post action bar AI pill ---------- */
+
+button.liai-comment-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-shrink: 0;
+  margin: 0 4px;
+  padding: 0 11px;
+  height: 32px;
+  min-height: 32px;
+  border: 1px solid rgba(0, 113, 227, 0.22);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 248, 255, 0.96) 100%);
+  color: #0071e3;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.18s ease,
+              border-color 0.18s ease,
+              box-shadow 0.18s ease;
+}
+
+button.liai-comment-button:hover {
+  background: linear-gradient(180deg, #0077ed 0%, #0066cc 100%);
+  border-color: #0066cc;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 113, 227, 0.28);
+  transform: translateY(-0.5px);
+}
+
+button.liai-comment-button:active {
+  transform: translateY(0) scale(0.97);
+}
+
+button.liai-comment-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.35);
+}
+
+button.liai-comment-button .liai-sparkle-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+button.liai-comment-button:hover .liai-sparkle-icon {
+  transform: rotate(12deg) scale(1.08);
+}
+
+button.liai-comment-button .liai-button-label {
+  display: inline-block;
+}
+
+/* ---------- Grammarly-style floating editor widget ---------- */
+
+#liai-grammarly-widget.liai-grammarly-trigger {
+  position: fixed;
+  z-index: 2147482999;
+  display: none;
+  align-items: center;
+  gap: 2px;
+  height: 26px;
+  padding: 0 4px 0 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 113, 227, 0.24);
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  color: #1d1d1f;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  user-select: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.2s ease,
+              background 0.2s ease,
+              border-color 0.2s ease;
+  animation: liai-pop-in 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes liai-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.86) translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+#liai-grammarly-widget.liai-grammarly-trigger:hover {
+  transform: translateY(-1px);
+  border-color: rgba(0, 113, 227, 0.55);
+  box-shadow: 0 6px 18px rgba(0, 113, 227, 0.24), 0 2px 5px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+}
+
+#liai-grammarly-widget .liai-grammarly-main {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 5px 0 0;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+}
+
+#liai-grammarly-widget .liai-grammarly-main:active {
+  transform: scale(0.96);
+}
+
+#liai-grammarly-widget .liai-grammarly-hide {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #86868b;
+  font-size: 10px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+#liai-grammarly-widget .liai-grammarly-hide:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: #1d1d1f;
+}
+
+#liai-grammarly-widget .liai-grammarly-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0071e3 0%, #5e5ce6 100%);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 113, 227, 0.35);
+}
+
+#liai-grammarly-widget .liai-grammarly-dot .liai-sparkle-icon {
+  width: 11px;
+  height: 11px;
+}
+
+#liai-grammarly-widget .liai-grammarly-label {
+  color: #0071e3;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------- Apple-inspired glass composer panel ---------- */
+
+#liai-panel.liai-panel {
+  position: fixed;
+  z-index: 2147483000;
+  width: 420px;
+  max-width: calc(100vw - 24px);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  -webkit-backdrop-filter: saturate(190%) blur(28px);
+  backdrop-filter: saturate(190%) blur(28px);
+  color: #1d1d1f;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.22),
+              0 4px 14px rgba(0, 0, 0, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  overflow: hidden;
+  animation: liai-panel-enter 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes liai-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.975);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#liai-panel .liai-panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px 16px 14px;
+  box-sizing: border-box;
+}
+
+#liai-panel .liai-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#liai-panel .liai-panel-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #1d1d1f;
+  white-space: nowrap;
+}
+
+#liai-panel .liai-title-badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #0071e3 0%, #5e5ce6 100%);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 113, 227, 0.28);
+}
+
+#liai-panel .liai-title-badge .liai-sparkle-icon {
+  width: 13px;
+  height: 13px;
+}
+
+#liai-panel .liai-panel-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#liai-panel .liai-tone-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #6e6e73;
+  white-space: nowrap;
+}
+
+#liai-panel select.liai-tone,
+#liai-panel select.liai-channel {
+  max-width: 136px;
+  padding: 4px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1d1d1f;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#liai-panel select.liai-channel {
+  max-width: 102px;
+}
+
+#liai-panel select.liai-tone:focus,
+#liai-panel select.liai-channel:focus {
+  outline: none;
+  border-color: #0071e3;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.18);
+}
+
+#liai-panel .liai-icon-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  color: #6e6e73;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+#liai-panel .liai-icon-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #1d1d1f;
+}
+
+#liai-panel .liai-context {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #6e6e73;
+  background: rgba(0, 0, 0, 0.035);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  padding: 7px 10px;
+  max-height: 76px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+#liai-panel .liai-angle-wrap {
+  display: block;
+}
+
+#liai-panel input.liai-angle {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.11);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #1d1d1f;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.35;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#liai-panel input.liai-angle:focus {
+  outline: none;
+  border-color: #0071e3;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.16);
+}
+
+#liai-panel textarea.liai-text {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 82px;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1d1d1f;
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  resize: vertical;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+#liai-panel textarea.liai-text:focus {
+  outline: none;
+  border-color: #0071e3;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.18);
+}
+
+#liai-panel .liai-thought-wrap {
+  border: 1px solid rgba(0, 113, 227, 0.16);
+  background: rgba(0, 113, 227, 0.045);
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+
+#liai-panel .liai-thought-wrap[hidden] {
+  display: none;
+}
+
+#liai-panel .liai-thought-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#liai-panel .liai-thought-toggle {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #005bb5;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#liai-panel .liai-thought-toggle:hover {
+  color: #004488;
+}
+
+#liai-panel .liai-thought-open-history {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #515154;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#liai-panel .liai-thought-open-history:hover {
+  color: #0071e3;
+}
+
+#liai-panel .liai-thought-body {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0, 113, 227, 0.12);
+  font-size: 11.5px;
+  line-height: 1.48;
+  color: #3a3a3c;
+  white-space: pre-wrap;
+  max-height: 130px;
+  overflow-y: auto;
+}
+
+#liai-panel .liai-thought-body[hidden] {
+  display: none;
+}
+
+#liai-panel .liai-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6e6e73;
+  padding-left: 2px;
+}
+
+#liai-panel .liai-status[hidden] {
+  display: none;
+}
+
+#liai-panel .liai-status[data-busy="true"] {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+#liai-panel .liai-status[data-busy="true"]::before {
+  content: "";
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 2px solid rgba(0, 113, 227, 0.22);
+  border-top-color: #0071e3;
+  border-radius: 50%;
+  animation: liai-spin 0.65s linear infinite;
+}
+
+@keyframes liai-spin {
+  to { transform: rotate(360deg); }
+}
+
+#liai-panel .liai-error {
+  display: block;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #c91b26;
+  background: rgba(255, 59, 48, 0.09);
+  border: 1px solid rgba(255, 59, 48, 0.24);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+#liai-panel .liai-error[hidden] {
+  display: none;
+}
+
+#liai-panel .liai-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+#liai-panel .liai-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+#liai-panel .liai-word-count {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6e6e73;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#liai-panel .liai-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#liai-panel .liai-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 7px 13px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1d1d1f;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#liai-panel .liai-btn:hover {
+  background: #f5f5f7;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+#liai-panel .liai-btn:active {
+  transform: scale(0.97);
+}
+
+#liai-panel .liai-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
+}
+
+#liai-panel .liai-btn[hidden] {
+  display: none !important;
+}
+
+#liai-panel .liai-btn.liai-stop {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #d70015;
+  border-color: rgba(215, 0, 21, 0.28);
+  background: rgba(255, 59, 48, 0.08);
+}
+
+#liai-panel .liai-btn.liai-stop:hover {
+  background: rgba(255, 59, 48, 0.15);
+  border-color: rgba(215, 0, 21, 0.45);
+}
+
+#liai-panel .liai-btn.liai-btn-primary,
+#liai-panel .liai-btn.liai-primary {
+  background: linear-gradient(180deg, #0077ed 0%, #0066cc 100%);
+  border-color: #0066cc;
+  color: #ffffff;
+  padding: 7px 16px;
+  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.28);
+}
+
+#liai-panel .liai-btn.liai-btn-primary:hover,
+#liai-panel .liai-btn.liai-primary:hover {
+  background: linear-gradient(180deg, #0080ff 0%, #006ddb 100%);
+  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.36);
+}
+
+/* ---------- Apple-style pill toast ---------- */
+
+#liai-toast.liai-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 2147483001;
+  max-width: min(480px, calc(100vw - 32px));
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(29, 29, 31, 0.88);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#liai-toast.liai-toast-error {
+  background: rgba(215, 0, 21, 0.92);
+}
+
+/* ---------- dark mode ---------- */
+
+@media (prefers-color-scheme: dark) {
+  button.liai-comment-button {
+    background: rgba(44, 44, 46, 0.9);
+    border-color: rgba(10, 132, 255, 0.35);
+    color: #2997ff;
+    box-shadow: none;
+  }
+
+  button.liai-comment-button:hover {
+    background: #0a84ff;
+    border-color: #0a84ff;
+    color: #ffffff;
+  }
+
+  #liai-grammarly-widget.liai-grammarly-trigger {
+    background: rgba(36, 36, 38, 0.9);
+    border-color: rgba(10, 132, 255, 0.4);
+    color: #f5f5f7;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  }
+
+  #liai-grammarly-widget.liai-grammarly-trigger:hover {
+    background: rgba(48, 48, 52, 0.98);
+    border-color: #2997ff;
+  }
+
+  #liai-grammarly-widget .liai-grammarly-label {
+    color: #2997ff;
+  }
+
+  #liai-grammarly-widget .liai-grammarly-hide {
+    color: #98989d;
+  }
+
+  #liai-grammarly-widget .liai-grammarly-hide:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+  }
+
+  #liai-panel.liai-panel {
+    background: rgba(30, 30, 32, 0.88);
+    color: #f5f5f7;
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  #liai-panel .liai-panel-title {
+    color: #f5f5f7;
+  }
+
+  #liai-panel select.liai-tone,
+  #liai-panel select.liai-channel,
+  #liai-panel input.liai-angle,
+  #liai-panel textarea.liai-text,
+  #liai-panel .liai-btn {
+    background: rgba(44, 44, 46, 0.92);
+    border-color: rgba(255, 255, 255, 0.16);
+    color: #f5f5f7;
+  }
+
+  #liai-panel .liai-icon-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #a1a1a6;
+  }
+
+  #liai-panel .liai-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+  }
+
+  #liai-panel .liai-context {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #a1a1a6;
+  }
+
+  #liai-panel .liai-tone-label,
+  #liai-panel .liai-word-count,
+  #liai-panel .liai-status {
+    color: #a1a1a6;
+  }
+
+  #liai-panel .liai-btn:hover {
+    background: rgba(58, 58, 60, 0.95);
+  }
+
+  #liai-panel .liai-btn.liai-stop {
+    color: #ff6961;
+    border-color: rgba(255, 69, 58, 0.4);
+    background: rgba(255, 69, 58, 0.14);
+  }
+
+  #liai-panel .liai-btn.liai-stop:hover {
+    background: rgba(255, 69, 58, 0.24);
+    border-color: rgba(255, 69, 58, 0.6);
+  }
+
+  #liai-panel .liai-btn.liai-btn-primary,
+  #liai-panel .liai-btn.liai-primary {
+    background: linear-gradient(180deg, #0a84ff 0%, #0071e3 100%);
+    border-color: #0a84ff;
+    color: #ffffff;
+  }
+
+  #liai-panel .liai-error {
+    background: rgba(255, 69, 58, 0.16);
+    border-color: rgba(255, 69, 58, 0.35);
+    color: #ff9f9a;
+  }
+}

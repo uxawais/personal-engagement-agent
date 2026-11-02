@@ -1,0 +1,15 @@
+{
+  "name": "linkedin-comment-ai",
+  "version": "1.1.0",
+  "description": "Privacy-first Chrome/Edge extension (MV3) to write authentic, high-signal LinkedIn & X comments and posts using any LLM provider.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/run.test.js tests/pages.test.js",
+    "check": "node --check background.js && node --check content.js && node --check options.js && node --check popup.js && node --check history.js",
+    "icons": "python3 scripts/make-icons.py",
+    "pack": "python3 -c \"import zipfile; files = ['manifest.json', 'background.js', 'content.js', 'content.css', 'options.html', 'options.js', 'options.css', 'popup.html', 'popup.js', 'popup.css', 'history.html', 'history.js', 'history.css', 'README.md', 'icons/icon16.png', 'icons/icon32.png', 'icons/icon48.png', 'icons/icon128.png']; z = zipfile.ZipFile('linkedin-comment-ai.zip', 'w', zipfile.ZIP_DEFLATED); [z.write(f, f) for f in files]; z.close(); print('Package built.')\""
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.0"
+  }
+}
